@@ -1,4 +1,6 @@
-﻿namespace Demo
+﻿using static System.Net.WebRequestMethods;
+
+namespace Demo
 {
     internal class Program
     {
@@ -40,28 +42,37 @@
             {
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
             }
-            Console.WriteLine("\n");
 
-            Console.WriteLine("---Under $50---");
+
+            Console.WriteLine("\n---Under $50---");
             foreach (var product in cheaper)
             {
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
             }
-            Console.WriteLine("\n");
 
-            Console.WriteLine("---In Stock---");
+
+            Console.WriteLine("\n---In Stock---");
             foreach (var product in inStock)
             {
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
             }
-            Console.WriteLine("\n");
 
-            Console.WriteLine("---Clothing Under 4100---");
+            Console.WriteLine("\n---Clothing Under 4100---");
             foreach (var product in clothing)
             {
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
             }
             Console.WriteLine("\n");
+            Console.WriteLine("-------------------------------------");
+
+
+            #region Task 03 3.1
+            Console.WriteLine("--- Short Report ---");
+            PrintReport(catalog, p => Console.WriteLine($"{p.Name} - ${p.Price}"));
+
+            Console.WriteLine("\n--- Detailed Report ---");
+            PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
+            #endregion
 
         }
         public static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
@@ -80,5 +91,13 @@
         }
 
         #endregion
+        #region Task 03 3.1
+        public static void PrintReport(List<Product> products, Action<Product> printProduct)
+        {
+            foreach (var product in products)
+                printProduct(product);
+        }
+        #endregion
+
     }
 }
