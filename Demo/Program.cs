@@ -57,7 +57,7 @@ namespace Demo
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
             }
 
-            Console.WriteLine("\n---Clothing Under 4100---");
+            Console.WriteLine("\n---Clothing Under 100---");
             foreach (var product in clothing)
             {
                 Console.WriteLine($"{product.Name}-${product.Price}(Stock: {product.Stock})");
@@ -74,8 +74,37 @@ namespace Demo
             PrintReport(catalog, p => Console.WriteLine($"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
             #endregion
 
+            #region Task 03 3.2
+            List<Product> expensive = TransformProducts(catalog, p => p.Price > 100);
+            List<Product> enexpensive = TransformProducts(catalog, p => p.Price <= 100);
+
+            Console.WriteLine("\n---Price Labels---");
+            foreach (var product in expensive)
+            {
+                Console.WriteLine($"{product.Name}: Expensive!");
+            }
+            foreach (var product in enexpensive)
+            {
+                Console.WriteLine($"{product.Name}: Afforable!");
+            }
+            #endregion
+
         }
         public static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
+        {
+            List<Product> result = new List<Product>();
+
+            foreach (var product in products)
+            {
+                if (filter(product))
+                {
+                    result.Add(product);
+                }
+            }
+
+            return result;
+        }
+        public static List<Product> TransformProducts(List<Product> products, Func<Product, bool> filter)
         {
             List<Product> result = new List<Product>();
 
