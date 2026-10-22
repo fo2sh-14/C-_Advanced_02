@@ -89,6 +89,15 @@ namespace Demo
             }
             #endregion
 
+            #region Task 03 3.3
+            Console.WriteLine("\n\n--- Low-Stock Alert ---");
+            var lowStockProducts = FilterProducts(catalog, p => p.Stock < 20);
+            foreach (var product in lowStockProducts)
+            {
+                Console.WriteLine($"[LOW STOCK] {product.Name}: only {product.Stock} left!");
+            }
+            #endregion
+
         }
         public static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
         {
@@ -120,11 +129,27 @@ namespace Demo
         }
 
         #endregion
+
         #region Task 03 3.1
         public static void PrintReport(List<Product> products, Action<Product> printProduct)
         {
             foreach (var product in products)
                 printProduct(product);
+        }
+        #endregion
+
+        #region Task 03 3.3
+        public static List<Product> FilterProducts(List<Product> products, Predicate<Product> predicate)
+        {
+            List<Product> filterList = new List<Product>();
+            foreach (var product in products)
+            {
+                if (predicate(product)) 
+                {
+                    filterList.Add(product);
+                }
+            }
+            return filterList;
         }
         #endregion
 
